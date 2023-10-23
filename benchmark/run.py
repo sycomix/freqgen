@@ -18,13 +18,14 @@ file_grid = ParameterGrid(file_grid)
 
 for params in grid:
     print(params)
-    cmd = ["freqgen generate"]
-    cmd.append(f"-p {int(params['population_size'])}")
-    cmd.append(f"-m {params['mutation_rate']}")
-    cmd.append(f"-e 15")
-    cmd.append(f"-c {params['crossover_rate']}")
-    # cmd.append(f"--pop-count {int(params['population_count'])}")
-    cmd.append(f"--log --dna ")
+    cmd = [
+        "freqgen generate",
+        f"-p {int(params['population_size'])}",
+        f"-m {params['mutation_rate']}",
+        "-e 15",
+        f"-c {params['crossover_rate']}",
+        "--log --dna ",
+    ]
     for f in file_grid:
         cmd_for_file = (
             " ".join(cmd)

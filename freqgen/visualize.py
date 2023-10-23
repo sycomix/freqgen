@@ -51,7 +51,7 @@ def visualize(
         raise ValueError("You appear to be passing an incomplete list of codons.")
 
     codons_only = False
-    if all([k_mer.endswith("*") for k_mer in k_mers]) and codons:
+    if all(k_mer.endswith("*") for k_mer in k_mers) and codons:
         k_mers = [k_mer[:-1] for k_mer in k_mers]
         codons_only = True
 

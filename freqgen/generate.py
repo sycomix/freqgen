@@ -21,8 +21,7 @@ def dna_to_vector(seq):
     seq = seq.astype(int)
     seq = [np.binary_repr(x, width=2) for x in seq]
     seq = [list(x) for x in seq]
-    seq = np.array(seq).flatten().astype(int)
-    return seq
+    return np.array(seq).flatten().astype(int)
 
 
 def vector_to_dna(vector):
@@ -82,7 +81,7 @@ def generate(
         str: The generated sequence.
     """
 
-    if all([char in {"A", "T", "G", "C"} for char in aa_seq]):
+    if all(char in {"A", "T", "G", "C"} for char in aa_seq):
         warn(
             "This appears to be a DNA sequence, not an amino acid sequence. Ensure that you are passing in an amino acid sequence."
         )
@@ -90,9 +89,7 @@ def generate(
     for target, frequencies in target_params.items():
         print(sum(frequencies.values()))
         if not isclose(sum(frequencies.values()), 1):
-            raise ValueError(
-                "Target frequencies for " + str(target) + " do not sum to 1.0"
-            )
+            raise ValueError(f"Target frequencies for {str(target)} do not sum to 1.0")
 
     # back translate to an initial seq
     insert = ""

@@ -60,11 +60,10 @@ def amino_acid_seq(length, frequencies):
     if length <= 0:
         raise ValueError("Length must be a positive integer")
 
-    sequence = ""
     amino_acids, frequencies = zip(*frequencies.items())
-    for i in range(length):
-        sequence += np.random.choice(amino_acids, p=frequencies)
-    return sequence
+    return "".join(
+        np.random.choice(amino_acids, p=frequencies) for _ in range(length)
+    )
 
 
 def amino_acids_to_codons(aa_seq, codon_frequencies, genetic_code=11):
@@ -360,11 +359,7 @@ def k_mer_frequencies(
         raise ValueError("Cannot vectorize codons.")
 
     # ensure there is a list of k values, even if it only has one element
-    if not isinstance(k, Iterable):
-        k = [k]
-    else:
-        k = sorted(k)
-
+    k = [k] if not isinstance(k, Iterable) else sorted(k)
     output = {}
 
     # ditto for sequence(s)
@@ -391,7 +386,7 @@ def k_mer_frequencies(
 
         if include_missing:
             defaults = {"".join(x): 0 for x in product("ATGC", repeat=_k)}
-            frequencies = {**defaults, **frequencies}
+            frequencies = defaults | frequencies
         if vector:
             frequencies = sorted(list(frequencies.items()), key=lambda x: x[0])
             frequencies = np.fromiter(
